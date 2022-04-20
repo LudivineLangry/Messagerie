@@ -28,36 +28,26 @@ app.get('/style.css',(req,res)=>{
   res.sendFile(path.join(__dirname,'..','/css/style.css'));
 });
 
-// Recensement de l'utilisateur
-function user() {
-  io.fetchSockets().then((room)=> {
-    var user = [];
-      room.forEach(element => {
-        user.push(element.nickname);
-        console.log(user)
-      });
-      io.emit('reception_pseudo', user);
-  });
-}
-
-//Récupération de la liste des utilisateurs (Sockets) connectés
-io.fetchSockets().then((room)=> {
-  var utilisateurs=[];
-  room.forEach((item) => {
-    utilisateurs.push({
-      id_client : item.id,
-      pseudo_client : item.pseudo,
-    });
-  });
-  io.emit('reception_utilisateur',utilisateurs);
-});
-
 // Lancement du gestionnaire d'événements, qui va gérer notre Socket
 io.on('connection',(socket)=>{
   // Socket de saisie du pseudo
   socket.on('set-pseudo',(pseudo)=>{
     console.log(pseudo + " vient de se connecter à "+new Date());
     socket.nickname = pseudo;
+
+    //Récupération de la liste des utilisateurs (Sockets) connectés
+    io.fetchSockets().then((room)=> {
+      var utilisateurs=[];
+      room.forEach((item) => {
+        socket.pseudo = pseudo;
+        utilisateurs.push({
+          id_client : item.id,
+          pseudo_client : item.pseudo,
+        });
+      });
+      io.emit('reception_utilisateur',utilisateurs);
+    });
+
   });
 
   // Socket pour l'émission/reception des messages
@@ -67,6 +57,9 @@ io.on('connection',(socket)=>{
       msg : message
     });
   });
+
+
+
   
   // Socket log serveur pour la déconnexion
   socket.on('disconnect',()=>{

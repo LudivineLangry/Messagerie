@@ -1,5 +1,5 @@
 html {
-  background-color: white;/*#2f3136;*/
+  background-color: #333;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 
 /* Barre d'en bas */
 #form {
-  background-color: #E6E6E6;/*#40444b;*/
+  background-color: #40444b;
   padding: 0.25rem;
   position: fixed;
   bottom: 0;
@@ -26,9 +26,9 @@ body {
   flex-grow: 1;
   border-radius: 2px;
   margin: 5px;
-  padding-bottom: 15px;
+  padding-bottom: 1%;
   width: 100%;
-  background-color: white;
+  background-color: whitesmoke;
 }
 
 #input:focus {
@@ -42,7 +42,6 @@ body {
   margin: 0.25rem;
   border-radius: 3px;
   outline: none;
-  color: #fff;
 }
 
 #button {
@@ -60,9 +59,19 @@ body {
 }
 
 #messages > li:nth-child(odd) {
-  background: whitesmoke; /*#494949;*/
+  background: #494949;
 }
 
-.border{
-  border-right: solid black;
+.visuel {
+  padding-top: 0.5%;
+  padding-bottom: 0.8%;
+  background-color: #333;
+}
+
+.titres {
+  color: white;
+}
+
+.largeur-page {
+  height: 100%;
 }
